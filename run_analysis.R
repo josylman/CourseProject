@@ -1,8 +1,10 @@
 # setwd("~/Desktop/Data Science Specialization/Getting and Cleaning Data/Course Project")
+# obrain the data from the provided URL
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileURL, destfile = "./data/data.zip", method = "curl") #downloads data in a file called data
 unzip("./data/data.zip")
 
+# read the X test and train sets and the variable names
 test_text <- read.table("./data/UCI HAR Dataset/test/X_test.txt", header=FALSE,  sep="")
 train_text <- read.table("./data/UCI HAR Dataset/train/X_train.txt", header=FALSE,  sep="")
 variable_names <- read.table("./data/UCI HAR Dataset/features.txt")
@@ -23,6 +25,7 @@ test_activity <- read.table("./data/UCI HAR Dataset/test/y_test.txt")
 train_activity <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
 activity_merge <- rbind(test_activity, train_activity)
 
+# Add a column to the activity_merge to be able to put in the corresponding activity for each number
 activity_merge <- cbind(activity_merge, V2 = factor(x = nrow(activity_merge), levels = activity_labels$V2))
 
 for (i in 1:nrow(activity_labels)) {
@@ -44,11 +47,9 @@ train_subject <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
 subject_merge <- rbind(test_subject, train_subject)
 merge_data_all <- cbind(merge_data_all, subject_merge )
 
-library(dplyr)
+# split the data by the activity and subject
 by_activity <- split(merge_data_all,list(merge_data_all$`activity_merge$V2`,merge_data_all$V1))
-                   
 names_sanda <- names(by_activity)
-
 means_by_sanda = list()
 for (name in names_sanda) {
       df <- by_activity[[name]][1:79] 
