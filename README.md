@@ -1,8 +1,8 @@
 # CourseProject
-# This script works by taking the in the test and training data of 30 subjects, from 
-# X-test and X-train.txt. The variable names are taken from a separate file, features.txt
-# Next, the test data and train data is merged and the column names are attached to the
-# the merge_data
+This script works by taking the in the test and training data of 30 subjects, from 
+X-test and X-train.txt. The variable names are taken from a separate file, features.txt
+Next, the test data and train data is merged and the column names are attached to the
+the merge_data
 
 Next the grepl function was used to search for where mean and std are present in all of
 the column names. Using the indices, it was possibile to determine where the mean and 
